@@ -1,3 +1,4 @@
+using Assets.Scripts.Resources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,12 +7,12 @@ using UnityEngine.Tilemaps;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] float speed = 10.0f;
-    //[SerializeField] Tilemap destructableTileMap;
+    [SerializeField] float speed = 5.0f;
 
     Rigidbody2D rb;
 
-    private void Start() {
+    private void Start()
+    {
         rb = gameObject.GetComponent<Rigidbody2D>();
         speed = speed * 10;
     }
@@ -35,16 +36,21 @@ public class PlayerControl : MonoBehaviour
             {
                 Debug.Log("CLICKED " + hit.collider.name);
             }
-            Attack(hit.collider.gameObject);
+            ClickOnObject(hit.collider.gameObject);
         }
     }
 
-    private void Attack(GameObject go) 
+    private void ClickOnObject(GameObject go)
     {
-        //TODO: Finish: https://github.com/Oragoss/lich-keeper/blob/main/Assets/Scripts/Player/HighlightWall.cs
-        if(Vector3.Distance(transform.position, go.transform.position) <= 2)
+        //TODO: Determine what kind of object it is
+        if (Vector3.Distance(transform.position, go.transform.position) <= 2 && !go.CompareTag("Player"))
         {
-            Destroy(go);
+            if (go.CompareTag("Wood") || go.CompareTag("Stone"))
+            {
+                go.GetComponent<GenerateCollectable>().Generate();
+                Destroy(go);
+            }
+
         }
     }
 }
