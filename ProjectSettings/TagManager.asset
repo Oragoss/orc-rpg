@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wood
   - Stone
+  - Collectable
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - Obstacles
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
