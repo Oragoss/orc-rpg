@@ -13,9 +13,10 @@ namespace Assets.Scripts.Resources
         {
             var random = new System.Random(Guid.NewGuid().GetHashCode());
             int randomNumber = random.Next(numberOfCollectables);
-            for (int i = 0; i < randomNumber; i++)
+            var notZero = randomNumber == 0 ? 1 : randomNumber;
+            for (int i = 0; i < notZero; i++)
             {
-                int plusOrMinus = randomNumber % 2 != 0 ? 1 : -1;
+                int plusOrMinus = notZero % 2 != 0 ? 1 : -1;
                 Instantiate(collectable, new Vector3(transform.position.x + plusOrMinus, transform.position.y, transform.position.z), transform.rotation);
             }
         }

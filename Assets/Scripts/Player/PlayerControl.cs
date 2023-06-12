@@ -9,6 +9,7 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] float speed = 5.0f;
     [SerializeField] LayerMask ignoreLayerMask;
+    [SerializeField] float howLongToWaitBeforePullingItems = 1.0f;
 
     Rigidbody2D rb;
 
@@ -38,7 +39,7 @@ public class PlayerControl : MonoBehaviour
         PullItemsToPlayer(collision);
     }
 
-    //TODO: Create trigger that's larger than the player and "pulls" items towards the player
+    //TODO: Put in some kind of delay
     private void PullItemsToPlayer(Collider2D collision)
     {
         var go = collision.gameObject;
@@ -50,7 +51,20 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    
+    //private IEnumerator WaitToPullItemsToPlayer(GameObject go)
+    //{
+    //    //Print the time of when the function is first called.
+    //    Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+    //    //yield on a new YieldInstruction that waits for 5 seconds.
+    //    yield return new WaitForSeconds(howLongToWaitBeforePullingItems);
+    //    Vector3 pos = transform.position - go.transform.position;
+    //    go.GetComponent<Rigidbody2D>().velocity = pos.normalized * 5;
+
+    //    //After we have waited 5 seconds print the time again.
+    //    Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    //}
+
     private void PickUpCollectable(Collision2D collision)
     {
         var go = collision.gameObject;
