@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 290763938302136964}
   - component: {fileID: 290763938302137019}
   - component: {fileID: 290763938302136965}
+  - component: {fileID: 290763938007388134}
   m_Layer: 0
   m_Name: potato-adult
   m_TagString: Untagged
@@ -164,3 +165,17 @@ MonoBehaviour:
   - {fileID: 290763938302137018}
   nextStageLimit: 0
   growthTime: 0
+--- !u!114 &290763938007388134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290763938302137018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef2a2e1b9f6a39439713243e98cafb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfCollectables: 6
+  collectable: {fileID: 0}

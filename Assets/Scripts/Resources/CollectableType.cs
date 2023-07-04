@@ -1,18 +1,11 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.Resources
 {
     public class CollectableType : MonoBehaviour
     {
-        public enum Collectable
-        {
-            Wood,
-            Stone,
-            Option3,
-            Option4,
-            Option5,
-        }
-        public Collectable type;
+        public Inventory.Collectable type;
+        public Sprite sprite;
     }
 }

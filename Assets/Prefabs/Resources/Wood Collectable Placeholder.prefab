@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5892365099494498260}
   - component: {fileID: -7449461597275544164}
   - component: {fileID: -494622338339158798}
+  - component: {fileID: -4513577581267636089}
+  - component: {fileID: 1233874245087811300}
   m_Layer: 0
   m_Name: Wood Collectable Placeholder
   m_TagString: Collectable
@@ -100,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sprite: {fileID: -871624215, guid: ca56f5af7d1dbd0499be9254b4a42bda, type: 3}
 --- !u!61 &-7449461597275544164
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,3 +150,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-4513577581267636089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166414044826600619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ea786ac4bf20c40978977e61b1de1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBePickedUp: 0
+  timeInTheWorld: 0
+  expirationTIme: 600
+  pickupDelayTime: 0.25
+--- !u!114 &1233874245087811300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166414044826600619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e217858a43c9b4ebd7831108ee1449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  sprite: {fileID: 0}

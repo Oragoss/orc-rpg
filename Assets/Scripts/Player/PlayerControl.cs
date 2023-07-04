@@ -4,14 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Assets.Scripts.Managers;
 
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] float speed = 5.0f;
     [SerializeField] LayerMask ignoreLayerMask;
-    [SerializeField] float howLongToWaitBeforePullingItems = 1.0f;
 
     Rigidbody2D rb;
+    InventoryManager inventoryManager = new InventoryManager();
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     private void Update()
     {
         ClickOnObject();
+        TogglePlayerInventory();
     }
 
     private void FixedUpdate()
@@ -28,7 +30,7 @@ public class PlayerControl : MonoBehaviour
         Movement();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         TakeDamage(collision);
         PickUpCollectable(collision);
@@ -43,7 +45,7 @@ public class PlayerControl : MonoBehaviour
     private void PullItemsToPlayer(Collider2D collision)
     {
         var go = collision.gameObject;
-        if (go.CompareTag("Collectable"))
+        if (go.CompareTag("Collectable") && go.GetComponent<ResourcePickupTimer>().canBePickedUp)
         {
             Debug.Log("Pulling " + go.name);
             Vector3 pos = transform.position - go.transform.position;
@@ -51,33 +53,48 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    //private IEnumerator WaitToPullItemsToPlayer(GameObject go)
-    //{
-    //    //Print the time of when the function is first called.
-    //    Debug.Log("Started Coroutine at timestamp : " + Time.time);
-
-    //    //yield on a new YieldInstruction that waits for 5 seconds.
-    //    yield return new WaitForSeconds(howLongToWaitBeforePullingItems);
-    //    Vector3 pos = transform.position - go.transform.position;
-    //    go.GetComponent<Rigidbody2D>().velocity = pos.normalized * 5;
-
-    //    //After we have waited 5 seconds print the time again.
-    //    Debug.Log("Finished Coroutine at timestamp : " + Time.time);
-    //}
-
     private void PickUpCollectable(Collision2D collision)
     {
-        var go = collision.gameObject;
-        if (go.CompareTag("Collectable"))
+        try
         {
-            Debug.Log("Picked up " + go.name + " it's a " + go.GetComponent<CollectableType>().type);
-            Destroy(go);
+            var go = collision.gameObject;
+            if (go.CompareTag("Collectable"))
+            {
+                if (go.GetComponent<ResourcePickupTimer>().canBePickedUp)
+                {
+                    Inventory newItem = new Inventory
+                    {
+                        Name = go.name,
+                        Amount = 1, //Change this somewhere? Is it always 1?
+                        Type = go.GetComponent<CollectableType>().type,
+                        Sprite = go.GetComponent<CollectableType>().sprite
+                    };
+
+                    inventoryManager.AddItemToPlayerInventory(newItem);
+                    UiManager.ui.UpdatePlayerInventory(inventoryManager.GetPlayerInventory());
+                    Destroy(go);
+                }
+            }
+        } 
+        catch(Exception ex)
+        {
+            Debug.LogError($"Error occured trying to pick up a collectable: \n{ex.Message}");
+        }
+    }
+
+    private void TogglePlayerInventory()
+    {
+        if (Input.GetButtonDown("Inventory"))
+        {
+            UiManager.ui.TogglePlayerInventory();
+
+            Debug.Log("TODO: open the UI screen and populate it with the items from the player's inventory");
         }
     }
 
     private void TakeDamage(Collision2D collision)
     {
-        
+
     }
 
     private void Movement()
@@ -96,21 +113,26 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, ~ignoreLayerMask);
-            Physics2D.queriesHitTriggers = false;
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, ~ignoreLayerMask);
+            //Physics2D.queriesHitTriggers = false;
 
             if (hit.collider != null)
             {
+                //if (hit.collider.isTrigger)
+                //{
+                //    HarvestResource(hit.collider.gameObject);
+                //}
                 HarvestResource(hit.collider.gameObject);
             }
+
         }
     }
 
     private void HarvestResource(GameObject go)
     {
-        if (Vector3.Distance(transform.position, go.transform.position) <= 2 && !go.CompareTag("Player"))
+        if (Vector3.Distance(transform.position, go.transform.position) <= 3 && !go.CompareTag("Player"))
         {
-            if (go.CompareTag("Wood") || go.CompareTag("Stone"))
+            if (go.CompareTag("Wood") || go.CompareTag("Stone") || go.CompareTag("Crop"))
             {
                 go.GetComponent<GenerateCollectable>().Generate();
                 Destroy(go);

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3568192696879898506}
   - component: {fileID: -3857492365908858141}
   - component: {fileID: -3131007796656169635}
+  - component: {fileID: 4295700467181213500}
   m_Layer: 0
   m_Name: Rock Collectable
   m_TagString: Collectable
@@ -116,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  sprite: {fileID: 21300000, guid: 3b35f1b4d7882514a891a12d4cb50ef2, type: 3}
 --- !u!50 &-3131007796656169635
 Rigidbody2D:
   serializedVersion: 4
@@ -137,3 +139,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4295700467181213500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3568192696879898505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ea786ac4bf20c40978977e61b1de1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBePickedUp: 0
+  timeInTheWorld: 0
+  expirationTIme: 600
+  pickupDelayTime: 0.25

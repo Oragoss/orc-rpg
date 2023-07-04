@@ -1,22 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 
 namespace Assets.Scripts.Managers
 {
     public class InventoryManager
     {
-        public enum ItemType
+        public Inventory inventory = new Inventory();
+
+        private List<Inventory> playerInventory = new List<Inventory>();
+        private Dictionary<string, Inventory> chestInventories = new();
+
+        #region Player Inventory
+        public List<Inventory> GetPlayerInventory()
         {
-            Wood,
-            Stone
+            return playerInventory;
         }
 
-        private Dictionary<string, int> inventory = new Dictionary<string, int>();
-
-        public Dictionary<string, int> GetInventory()
+        public void RemoveItemFromPlayerInventory(string name)
         {
-            return inventory;
+            var itemToRemove = playerInventory.SingleOrDefault(r => r.Name == name);
+            playerInventory.Remove(itemToRemove);
         }
+
+        public void AddItemToPlayerInventory(Inventory newItem)
+        {
+            playerInventory.Add(newItem);
+        }
+
+        public void SavePlayerInventory()
+        {
+            //TODO: write to file here
+        }
+        #endregion
+
+        #region Chest Inventory
+        //TODO: Chest inventory
+        #endregion
     }
 }

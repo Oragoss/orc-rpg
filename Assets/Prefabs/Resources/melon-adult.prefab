@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2960389628186119136}
   - component: {fileID: 2960389628186119139}
   - component: {fileID: 2960389628186119137}
+  - component: {fileID: 2960389629641628428}
   m_Layer: 0
   m_Name: melon-adult
   m_TagString: Untagged
@@ -80,6 +81,20 @@ MonoBehaviour:
   - {fileID: 2960389628186119138}
   nextStageLimit: 0
   growthTime: 0
+--- !u!114 &2960389629641628428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2960389628186119138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef2a2e1b9f6a39439713243e98cafb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfCollectables: 1
+  collectable: {fileID: 0}
 --- !u!1 &2960389629679639900
 GameObject:
   m_ObjectHideFlags: 0
